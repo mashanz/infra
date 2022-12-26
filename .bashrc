@@ -1,10 +1,23 @@
-echo ""
-echo "📜 Selamat datang di INFRA"
-echo ""
-echo "💻️ INFRA merupakan alat bantu untuk mempermudah pekerjaan developer."
-echo "   Di design sebagai alternative dari XAMPP/Lampp dengan berbasis Ubuntu."
-echo "💡 GitHub: https://github.com/mashanz/infra"
-echo ""
+echo "
+   ____ _  __ ____ ___   ___ 
+  /  _// |/ // __// _ \ / _ |
+ _/ / /    // _/ / , _// __ |
+/___//_/|_//_/  /_/|_|/_/ |_| 
+
+📜 Selamat datang di INFRA
+
+💻️ INFRA merupakan alat bantu untuk mempermudah 
+   pembuatan MVP sebuah aplikasi berbasis web.
+   Didesign sebagai alternative dari XAMPP/Lampp 
+   berbasis Ubuntu yang terinstall Python dan NodeJS.
+
+💡 Repository: https://github.com/mashanz/infra
+
+   Detail informasi system yang sedang dijalankan.
+   CPU      : $(nproc) Core
+   RAM      : $(($(free -m | awk '/^Mem:/{print $2}') / 1000)) GB
+   Storage  : $(df -h | awk '/\/$/{print $4}' | sed 's/G//') GB
+"
 
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
