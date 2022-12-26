@@ -5,7 +5,7 @@ Sandbox infrastruktur perangkat lunak MVP berbasis Linux Ubuntu dengan integrasi
 ## Persyaratan Minimum
 
 ```
-OS    : Linux, MacOS, Windows
+OS    : Linux, MacOS, Windows (WSL)
 CPU   : 2 Core
 RAM   : 4 GB
 DRIVE : 20 GB
