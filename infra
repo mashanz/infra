@@ -15,7 +15,7 @@ source $BASEDIR/.env
 
 DOCKER_PREFIX=infra
 DOCKER_COMPOSE_FILE=$BASEDIR/docker-compose.yml
-INFRA_CONTAINER_NAME=infra-dev
+INFRA_CONTAINER_NAME=infra
 DOCKER_COMMAND="docker-compose -f $DOCKER_COMPOSE_FILE -p $DOCKER_PREFIX --env-file $BASEDIR/.env"
 
 function start() {
@@ -34,11 +34,11 @@ function shell() {
         WORKDIR=$WORKDIR/$PROJECT_NAME
     fi
 
-    docker exec -it -u $USERID:$USERGID -w $WORKDIR infra-dev bash -l
+    docker exec -it -u $USERID:$USERGID -w $WORKDIR infra bash -l
 }
 
 function root() {
-    docker exec -it -u root -w /root infra-dev bash -l
+    docker exec -it -u root -w /root infra bash -l
 }
 
 function stop() {
