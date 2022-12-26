@@ -31,7 +31,7 @@ Other : Sudah terinstall Docker
 ```bash
 bash <(curl -s https://raw.githubusercontent.com/mashanz/infra/main/download.sh)`
 ```
-- Masuk ke shell dengan perintah `infra shell` dan mulai development. Untuk detail command bisa jalankan `infra shell`
+- Masuk ke shell dengan perintah `infra shell` dan mulai development.
 
 ## Penggunaan
 
