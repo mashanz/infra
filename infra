@@ -59,16 +59,6 @@ function update() {
     stop && start
 }
 
-function update_command() {
-    if [ "$(uname)" == "Darwin" ]; then
-        rm -rf /usr/local/bin/infra
-        ln -s $INFRA_SHELL_PATH/infra /usr/local/bin
-    else
-        rm -rf $HOME/.local/bin/infra
-        ln -s $INFRA_SHELL_PATH/infra $HOME/.local/bin
-    fi
-}
-
 function rebuild() {
     stop
     docker image rm infra_dev
@@ -85,7 +75,6 @@ case "$1" in
     restart) stop; start ;;
     root) root ;;
     update) update ;;
-    update_command) update_command ;;
     rebuild) rebuild ;;
     logs) logs  ${@:2};;
     *|shell) run ;;
