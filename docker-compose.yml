@@ -5,6 +5,7 @@ services:
   # Exposed Network
   ############################################################
   network:
+    restart: always
     image: busybox
     hostname: infra
     network_mode: bridge
@@ -30,6 +31,7 @@ services:
   # Infra Development Environment
   ############################################################
   infra:
+    restart: always
     build:
       context: .
       dockerfile: Dockerfile
@@ -61,12 +63,14 @@ services:
   # Redis
   ############################################################
   redis:
+    restart: always
     image: redis:alpine
     network_mode: service:network
   ############################################################
   # PgAdmin4
   ############################################################
   pgadmin:
+    restart: always
     image: dpage/pgadmin4:latest
     network_mode: service:network
     environment:
@@ -78,6 +82,7 @@ services:
   # PostgreSQL
   ############################################################
   postgresql:
+    restart: always
     image: postgres:latest
     network_mode: service:network
     environment:
@@ -90,12 +95,14 @@ services:
   # Mailhog
   ############################################################
   mailhog:
+    restart: always
     image: mailhog/mailhog
     network_mode: service:network
   ############################################################
   # Minio S3 server
   ############################################################
   minio:
+    restart: always
     image: bitnami/minio:latest
     network_mode: service:network
     environment:
@@ -110,9 +117,9 @@ services:
   # MongoDB
   ############################################################
   mongo:
+    restart: always
     image: mongo:latest
     network_mode: service:network
-    restart: always
     environment:
       MONGO_INITDB_ROOT_USERNAME: admin
       MONGO_INITDB_ROOT_PASSWORD: admin
@@ -120,9 +127,9 @@ services:
   # Mongo Express
   ############################################################
   mongo-express:
+    restart: always
     image: mongo-express
     network_mode: service:network
-    restart: always
     environment:
       ME_CONFIG_MONGODB_ADMINUSERNAME: admin
       ME_CONFIG_MONGODB_ADMINPASSWORD: admin
