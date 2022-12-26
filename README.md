@@ -27,9 +27,11 @@ Other : Sudah terinstall Docker
 
 ## Instalasi
 
-- Clone repository ini
-- Jalankan instalasi `install.sh`
-- Masuk ke shell dengan perintah `infra shell` dan mulai development
+- Calankan command berikut pada terminal 
+```bash
+bash <(curl -s https://raw.githubusercontent.com/mashanz/infra/main/download.sh)`
+```
+- Masuk ke shell dengan perintah `infra shell` dan mulai development. Untuk detail command bisa jalankan `infra shell`
 
 ## Penggunaan
 
