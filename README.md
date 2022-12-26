@@ -21,7 +21,7 @@ Other : Sudah terinstall Docker
 | Mongo Express | MongoDB Admin UI | 8081 |
 | Redis | for KV database | 6379 |
 | Minio | Minio UI, Simulate S3 object storage | 9001 |
-| Mailhog | Mailhog UI, Simulate email inbox | 8025
+| Mailhog | Mailhog UI, Simulate email inbox | 8025 |
 
 ## Instalasi
 - Clone repository ini
