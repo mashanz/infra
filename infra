@@ -70,8 +70,10 @@ function logs() {
 }
 
 function help() {
+    echo ""
     echo "INFRA - Sebuah kontainer Docker untuk development."
     echo ""
+    echo "infra                         - Jalankan shell infra sebagai user"
     echo "infra start                   - Start infra"
     echo "infra stop                    - Stop infra"
     echo "infra restart                 - Restart infra"
@@ -80,6 +82,7 @@ function help() {
     echo "infra update                  - Update infra"
     echo "infra rebuild                 - Rebuild infra"
     echo "infra logs <service_name>     - Tampilkan log infra"
+    echo ""
 }
 
 case "$1" in 
