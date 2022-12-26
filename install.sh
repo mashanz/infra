@@ -58,7 +58,7 @@ fi
 
 echo ""
 
-if [ "$(echo $INFRA_MIN_REQ_STATUS)" != "8" ]; then
+if [ "$(echo $INFRA_MIN_REQ_STATUS)" != "7" ]; then
     echo "❌ Some requirements are not available. Please install them first."
     exit 1
 else
