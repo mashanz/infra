@@ -1,0 +1,142 @@
+version: '3'
+
+services:
+  ############################################################
+  # Exposed Network
+  ############################################################
+  network:
+    image: busybox
+    hostname: infra
+    network_mode: bridge
+    stop_grace_period: 1s
+    stop_signal: SIGKILL
+    command: "cat"
+    stdin_open: true
+    tty: true
+    ports:
+      - "3000:3000"   # apps (Customizable)
+      - "22222:22"    # SSH
+      - "5432:5342"   # PostgreSQL
+      - "81:80"       # PgAdmin4
+      - "1025:1025"   # mailhog SMTP
+      - "8025:8025"   # mailhog Interface
+      - "8081:8081"   # mongo express
+      - "27017:27017" # MongoDB
+      - "9000:9000"   # Minio S3 server
+      - "9001:9001"   # Minio Console
+      - "6006:6006"   # Storybook
+  ############################################################
+  # Infra Development Environment
+  ############################################################
+  infra:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        USERNAME: "${USERNAME}"
+        USERID: "${USERID}"
+        USERGID: "${USERGID}"
+    container_name: infra
+    tty: true
+    network_mode: service:network
+    user: ${USERID}:${USERGID}
+    environment:
+      AWS_S3_ENDPOINT: http://localhost:9000
+      AWS_ACCESS_KEY_ID: admin
+      AWS_SECRET_ACCESS_KEY: miniosecret
+      AWS_S3_NAMESPACE: infra-assets
+      EMAIL_DRIVER: smtp
+      TERM: xterm-256color
+      USERNAME: "${USERNAME}"
+      USERID: "${USERID}"
+      USERGID: "${USERGID}"
+    working_dir: /projects
+    volumes:
+      - /etc/group:/etc/group:ro
+      - "${PROJECT_PATH}:/projects:cached"
+      - home:/home/${USERNAME}.linux:rw
+      - ./.bashrc:/home/${USERNAME}.linux/.bashrc
+  ############################################################
+  # Redis
+  ############################################################
+  redis:
+    image: redis:alpine
+    network_mode: service:network
+  ############################################################
+  # PgAdmin4
+  ############################################################
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    network_mode: service:network
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "admin@example.com"
+      PGADMIN_DEFAULT_PASSWORD: "admin"
+    volumes:
+      - pgadmin:/var/lib/pgadmin
+  ############################################################
+  # PostgreSQL
+  ############################################################
+  postgresql:
+    image: postgres:latest
+    network_mode: service:network
+    environment:
+      POSTGRES_USER: "${USERNAME}"
+      POSTGRES_DB: infra
+      POSTGRES_HOST_AUTH_METHOD: trust
+    volumes:
+      - postgresql:/var/lib/postgresql/data
+  ############################################################
+  # Mailhog
+  ############################################################
+  mailhog:
+    image: mailhog/mailhog
+    network_mode: service:network
+  ############################################################
+  # Minio S3 server
+  ############################################################
+  minio:
+    image: bitnami/minio:latest
+    network_mode: service:network
+    environment:
+      - MINIO_ROOT_USER=admin
+      - MINIO_ROOT_PASSWORD=admin
+      - MINIO_DEFAULT_BUCKETS=infra-assets
+      - BITNAMI_DEBUG=true
+    volumes:
+      - 'minio_data:/data-minio'
+      - 'minio_data2:/data'
+  ############################################################
+  # MongoDB
+  ############################################################
+  mongo:
+    image: mongo:latest
+    network_mode: service:network
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin
+  ############################################################
+  # Mongo Express
+  ############################################################
+  mongo-express:
+    image: mongo-express
+    network_mode: service:network
+    restart: always
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: admin
+      ME_CONFIG_MONGODB_ADMINPASSWORD: admin
+      ME_CONFIG_MONGODB_URL: mongodb://admin:admin@localhost:27017/
+############################################################
+# Shared Volume
+############################################################
+volumes:
+  postgresql:
+    driver: local
+  pgadmin:
+    driver: local
+  minio_data:
+    driver: local
+  minio_data2:
+    driver: local
+  home:
+    driver: local

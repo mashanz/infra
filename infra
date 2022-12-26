@@ -1,0 +1,92 @@
+#!/usr/bin/env bash
+
+if ! docker info > /dev/null 2>&1; then
+  echo "This script uses docker, and it isn't running - please start docker and try again!"
+  exit 1
+fi
+
+
+export BASEDIR=$HOME/.infra
+export USERID="$(id -u)"
+export USERGID="$(id -g)"
+export USERNAME=$USER
+
+source $BASEDIR/.env
+
+DOCKER_PREFIX=infra
+DOCKER_COMPOSE_FILE=$BASEDIR/docker-compose.yml
+INFRA_CONTAINER_NAME=infra-dev
+DOCKER_COMMAND="docker-compose -f $DOCKER_COMPOSE_FILE -p $DOCKER_PREFIX --env-file $BASEDIR/.env"
+
+function start() {
+    if [ ! -f "$BASEDIR/.env" ]; then
+        $DOCKER_COMMAND build
+    fi
+
+    $DOCKER_COMMAND up -d
+}
+
+function shell() {
+    PROJECT_NAME=`basename $(pwd)`
+    WORKDIR=/projects
+
+    if [ -d $PROJECT_PATH/$PROJECT_NAME ]; then
+        WORKDIR=$WORKDIR/$PROJECT_NAME
+    fi
+
+    docker exec -it -u $USERID:$USERGID -w $WORKDIR infra-dev bash -l
+}
+
+function root() {
+    docker exec -it -u root -w /root infra-dev bash -l
+}
+
+function stop() {
+    $DOCKER_COMMAND down
+}
+
+function run() {
+    if [ ! $(docker ps -q -f status=running -f name=^/${INFRA_CONTAINER_NAME}$) ]; then
+        start
+    fi
+
+    shell
+}
+
+function update() {
+    git -C $BASEDIR pull
+
+    stop && start
+}
+
+function update_command() {
+    if [ "$(uname)" == "Darwin" ]; then
+        rm -rf /usr/local/bin/infra
+        ln -s $INFRA_SHELL_PATH/infra /usr/local/bin
+    else
+        rm -rf $HOME/.local/bin/infra
+        ln -s $INFRA_SHELL_PATH/infra $HOME/.local/bin
+    fi
+}
+
+function rebuild() {
+    stop
+    docker image rm infra_dev
+    start
+}
+
+function logs() {
+    docker-compose -f $DOCKER_COMPOSE_FILE -p infra logs $@
+}
+
+case "$1" in 
+    start) start ;;
+    stop) stop ;;
+    restart) stop; start ;;
+    root) root ;;
+    update) update ;;
+    update_command) update_command ;;
+    rebuild) rebuild ;;
+    logs) logs  ${@:2};;
+    *|shell) run ;;
+esac
