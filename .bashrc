@@ -1,3 +1,11 @@
+echo ""
+echo "📜 Selamat datang di INFRA"
+echo ""
+echo "💻️ INFRA merupakan alat bantu untuk mempermudah pekerjaan developer."
+echo "   Di design sebagai alternative dari XAMPP/Lampp dengan berbasis Ubuntu."
+echo "💡 GitHub: https://github.com/mashanz/infra"
+echo ""
+
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
@@ -57,9 +65,9 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ 🧑‍💻 '
+    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ 🖥️  '
 else
-    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ 🧑‍💻 '
+    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ 🖥️  '
 fi
 unset color_prompt force_color_prompt
 

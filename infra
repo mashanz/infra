@@ -69,6 +69,19 @@ function logs() {
     docker-compose -f $DOCKER_COMPOSE_FILE -p infra logs $@
 }
 
+function help() {
+    echo "INFRA - Sebuah kontainer Docker untuk development."
+    echo ""
+    echo "infra start                   - Start infra"
+    echo "infra stop                    - Stop infra"
+    echo "infra restart                 - Restart infra"
+    echo "infra shell                   - Jalankan shell infra sebagai user"
+    echo "infra root                    - Jalnaan shell infra sebagai root"
+    echo "infra update                  - Update infra"
+    echo "infra rebuild                 - Rebuild infra"
+    echo "infra logs <service_name>     - Tampilkan log infra"
+}
+
 case "$1" in 
     start) start ;;
     stop) stop ;;
@@ -77,5 +90,6 @@ case "$1" in
     update) update ;;
     rebuild) rebuild ;;
     logs) logs  ${@:2};;
+    help) help ;;
     *|shell) run ;;
 esac

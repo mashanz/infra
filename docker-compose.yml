@@ -19,6 +19,7 @@ services:
       - "5432:5342"   # PostgreSQL
       - "81:80"       # PgAdmin4
       - "1025:1025"   # mailhog SMTP
+      - "6379:6379"   # Redis
       - "8025:8025"   # mailhog Interface
       - "8081:8081"   # mongo express
       - "27017:27017" # MongoDB
