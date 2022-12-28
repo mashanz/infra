@@ -107,7 +107,7 @@ services:
     network_mode: service:network
     environment:
       - MINIO_ROOT_USER=admin
-      - MINIO_ROOT_PASSWORD=admin
+      - MINIO_ROOT_PASSWORD=miniosecret
       - MINIO_DEFAULT_BUCKETS=infra-assets
       - BITNAMI_DEBUG=true
     volumes:
