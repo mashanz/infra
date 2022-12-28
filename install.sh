@@ -1,31 +1,42 @@
-INFRA_VERSION=1.0.2
+INFRA_VERSION=1.0.3
 INFRA_MIN_REQ_STATUS=0
+
+if [ "$(uname)" == "Darwin" ]; then
+    NUM_PROCESSORS=$(sysctl -n hw.physicalcpu)
+    NUM_STORAGE=$(df -h | awk '/\/$/{print $4}' | sed 's/Gi//')
+    NUM_RAM=$(($(sysctl -n hw.memsize) / 1000000000))
+else
+    NUM_PROCESSORS=$(nproc)
+    NUM_STORAGE=$(df -h | awk '/\/$/{print $4}' | sed 's/G//')
+    NUM_RAM=$(($(free -m | awk '/^Mem:/{print $2}') / 1000))
+fi
+
 echo ""
 echo "Checking requirements.."
 echo ""
 
 # check number of CPU core
-if [ "$(nproc)" -gt 1 ]; then
-    echo "✅ Minimum 2 Core CPU      $(nproc) Core"
+if [ $NUM_PROCESSORS -gt 1 ]; then
+    echo "✅ Minimum 2 Core CPU      $NUM_PROCESSORS Core"
     INFRA_MIN_REQ_STATUS=$(($INFRA_MIN_REQ_STATUS + 1))
 else
-    echo "❌ Minimum 2 Core CPU"
+    echo "❌ Minimum 2 Core CPU"      $NUM_PROCESSORS Core
 fi
 
 # check RAM space minimum 4GB
-if [ "$(free -m | awk '/^Mem:/{print $2}')" -gt 4000 ]; then
-    echo "✅ Minimum 4 GB RAM        $(($(free -m | awk '/^Mem:/{print $2}') / 1000)) GB"
+if [ $NUM_RAM -gt 4 ]; then
+    echo "✅ Minimum 4 GB RAM        $NUM_RAM GB"
     INFRA_MIN_REQ_STATUS=$(($INFRA_MIN_REQ_STATUS + 1))
 else
-    echo "❌ Minimum 4 GB RAM"
+    echo "❌ Minimum 4 GB RAM        $NUM_RAM GB"
 fi
 
 # check storage space minimum 20GB
-if [ "$(df -h | awk '/\/$/{print $4}' | sed 's/G//')" -gt 20 ]; then
-    echo "✅ Minimum 20 GB Storage   $(df -h | awk '/\/$/{print $4}' | sed 's/G//') GB"
+if [ $NUM_STORAGE -gt 20 ]; then
+    echo "✅ Minimum 20 GB Storage   $NUM_STORAGE GB"
     INFRA_MIN_REQ_STATUS=$(($INFRA_MIN_REQ_STATUS + 1))
 else
-    echo "❌ Minimum 20 GB Storage"
+    echo "❌ Minimum 20 GB Storage   $NUM_STORAGE GB"
 fi
 
 if [ "$(which docker)" != "" ]; then
