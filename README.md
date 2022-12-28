@@ -1,5 +1,8 @@
 # INFRA 
 
+<img width="974" alt="Screen Shot 2022-12-28 at 11 26 43 AM" src="https://user-images.githubusercontent.com/9214059/209757300-79ec7a66-ddcf-4d92-8b6e-9ac58b4fa37f.png">
+
+
 Sandbox infrastruktur perangkat lunak MVP berbasis Linux Ubuntu dengan integrasi NodeJS, Python, Email service, Object Storage, SQL, NoSQL dan Redis.
 
 ## Persyaratan Minimum
