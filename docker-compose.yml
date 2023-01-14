@@ -15,18 +15,21 @@ services:
     stdin_open: true
     tty: true
     ports:
-      - "3000:3000"   # apps (Customizable)
-      - "22222:22"    # SSH
-      - "5432:5342"   # PostgreSQL
       - "81:80"       # PgAdmin4
       - "1025:1025"   # mailhog SMTP
+      - "3000:3000"   # apps (Customizable) example: NodeJS Server
+      - "4173:4173"   # apps (Customizable) Vite Prod
+      - "5173:5173"   # apps (Customizable) Vite Dev
+      - "5432:5342"   # PostgreSQL
+      - "6006:6006"   # Storybook
       - "6379:6379"   # Redis
-      - "8025:8025"   # mailhog Interface
+      - "8000:8000"   # apps (Customizable) example: Python Server
       - "8081:8081"   # mongo express
-      - "27017:27017" # MongoDB
+      - "8025:8025"   # mailhog Interface
       - "9000:9000"   # Minio S3 server
       - "9001:9001"   # Minio Console
-      - "6006:6006"   # Storybook
+      - "22222:22"    # SSH
+      - "27017:27017" # MongoDB
   ############################################################
   # Infra Development Environment
   ############################################################
