@@ -1,4 +1,4 @@
-INFRA_VERSION=1.0.6
+INFRA_VERSION=1.0.7
 INFRA_MIN_REQ_STATUS=0
 
 if [ "$(uname)" == "Darwin" ]; then
@@ -23,12 +23,12 @@ else
     echo "❌ Minimum 2 Core CPU"      $NUM_PROCESSORS Core
 fi
 
-# check RAM space minimum 4GB
-if [ $NUM_RAM -gt 4 ]; then
-    echo "✅ Minimum 4 GB RAM        $NUM_RAM GB"
+# check RAM space minimum 2GB
+if [ $NUM_RAM -gt 2 ]; then
+    echo "✅ Minimum 2 GB RAM        $NUM_RAM GB"
     INFRA_MIN_REQ_STATUS=$(($INFRA_MIN_REQ_STATUS + 1))
 else
-    echo "❌ Minimum 4 GB RAM        $NUM_RAM GB"
+    echo "❌ Minimum 2 GB RAM        $NUM_RAM GB"
 fi
 
 # check storage space minimum 20GB
