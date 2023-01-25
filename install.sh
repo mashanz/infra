@@ -1,4 +1,4 @@
-INFRA_VERSION=1.0.7
+INFRA_VERSION=1.0.8
 INFRA_MIN_REQ_STATUS=0
 
 if [ "$(uname)" == "Darwin" ]; then
@@ -114,8 +114,17 @@ if [ "$(uname)" == "Darwin" ]; then
     rm -rf /usr/local/bin/infra
     ln -s $INFRA_SHELL_PATH/infra /usr/local/bin
 else
+    mkdir -p $HOME/.local/bin/
+    chown -R $(whoami) $HOME/.local/bin/
     rm -rf $HOME/.local/bin/infra
     ln -s $INFRA_SHELL_PATH/infra $HOME/.local/bin
+fi
+
+if [ "$(which infra)" != "" ]; then
+    echo "Post Install..."
+else
+    echo "PATH=$PATH:$HOME/.local/bin" > $HOME/.bashrc
+    source $HOME/.bashrc
 fi
 
 exit
