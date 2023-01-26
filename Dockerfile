@@ -1,6 +1,6 @@
 FROM ubuntu:22.04
 RUN apt update -y
-RUN apt upgrade -y
+# RUN apt upgrade -y
 RUN apt install curl -y
 RUN apt install git -y
 RUN apt install nano -y

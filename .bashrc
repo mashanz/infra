@@ -137,4 +137,5 @@ fi
 export LC_ALL=C.UTF-8
 export LANG=C.UTF-8
 
-PATH="$HOME/bin:$HOME/.local/bin:$PATH"
+PNPM_HOME="$HOME/.local/share/pnpm"
+PATH="$HOME/bin:$HOME/.local/bin:${PNPM_HOME}:$PATH"

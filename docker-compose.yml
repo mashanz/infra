@@ -17,13 +17,14 @@ services:
     ports:
       - "81:80"       # PgAdmin4
       - "1025:1025"   # mailhog SMTP
-      - "3000:3000"   # apps (Customizable) example: NodeJS Server
-      - "4173:4173"   # apps (Customizable) Vite Prod
-      - "5173:5173"   # apps (Customizable) Vite Dev
+      - "3000:3000"   # apps (Customizable)
+      - "4173:4173"   # Vite Prod
+      - "5173:5173"   # Vite Dev
       - "5432:5342"   # PostgreSQL
       - "6006:6006"   # Storybook
       - "6379:6379"   # Redis
-      - "8000:8000"   # apps (Customizable) example: Python Server
+      - "8000:8000"   # apps (Customizable)
+      - "8001:8001"   # Redis Insight
       - "8081:8081"   # mongo express
       - "8025:8025"   # mailhog Interface
       - "9000:9000"   # Minio S3 server
@@ -68,6 +69,10 @@ services:
   redis:
     restart: always
     image: redis:alpine
+    network_mode: service:network
+  redis_insight:
+    restart: always
+    image: redislabs/redisinsight:latest
     network_mode: service:network
   ############################################################
   # PgAdmin4
