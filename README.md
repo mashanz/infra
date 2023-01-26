@@ -24,6 +24,7 @@ Other : Sudah terinstall Docker
 | MongoDB       | NoSQL database                       | 27017 |
 | Mongo Express | MongoDB Admin UI                     |  8081 |
 | Redis         | KV database                          |  6379 |
+| Redis Insight | Redish Dashboard                     |  8001 |
 | Minio         | Minio UI, Simulate S3 object storage |  9001 |
 | Mailhog       | Mailhog UI, Simulate email inbox     |  8025 |
 

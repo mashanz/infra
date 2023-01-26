@@ -1,4 +1,4 @@
-INFRA_VERSION=1.0.8
+INFRA_VERSION=1.0.9
 INFRA_MIN_REQ_STATUS=0
 
 if [ "$(uname)" == "Darwin" ]; then
