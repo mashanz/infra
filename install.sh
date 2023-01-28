@@ -120,11 +120,4 @@ else
     ln -s $INFRA_SHELL_PATH/infra $HOME/.local/bin
 fi
 
-if [ "$(which infra)" != "" ]; then
-    echo "Post Install..."
-else
-    echo "PATH=$PATH:$HOME/.local/bin" > $HOME/.bashrc
-    source $HOME/.bashrc
-fi
-
 exit
