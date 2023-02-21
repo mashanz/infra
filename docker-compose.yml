@@ -131,6 +131,8 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: admin
       MONGO_INITDB_ROOT_PASSWORD: admin
+    volumes:
+      - mongo:/data/db
   ############################################################
   # Mongo Express
   ############################################################
@@ -153,6 +155,8 @@ volumes:
   minio_data:
     driver: local
   minio_data2:
+    driver: local
+  mongo:
     driver: local
   home:
     driver: local
