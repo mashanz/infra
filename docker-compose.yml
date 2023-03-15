@@ -20,7 +20,7 @@ services:
       - "3000:3000"   # apps (Customizable)
       - "4173:4173"   # Vite Prod
       - "5173:5173"   # Vite Dev
-      - "5432:5342"   # PostgreSQL
+      - "5432:5432"   # PostgreSQL
       - "6006:6006"   # Storybook
       - "6379:6379"   # Redis
       - "8000:8000"   # apps (Customizable)
